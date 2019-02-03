@@ -41,7 +41,7 @@ module.exports = "ul li label span {\r\n  width: 180px;\r\n  display: inline-blo
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"time-inputs\">\n  <h3>Alarm, Beacon and Command distances (in ms)</h3>\n  <ul>\n    <li>\n      <label>\n        <span>ALARM TIME (ms)</span>\n        <input type=\"number\" [(ngModel)]=\"ATimeMs\">\n      </label>\n    </li>\n    <li>\n      <label>\n        <span>BEACON TIME (ms)</span>\n        <input type=\"number\" [(ngModel)]=\"BTimeMs\">\n      </label>\n    </li>\n    <li>\n      <label>\n        <span>COMMAND TIME (ms)</span>\n        <input type=\"number\" [(ngModel)]=\"CTimeMs\">\n      </label>\n    </li>\n  </ul>\n\n  <h3>Traverse distances (in ms)</h3>\n  <button (click)=\"onAddTClick($event)\">add T</button>\n  <ul>\n    <li *ngFor=\"let time of TTimeMs; index as i;\">\n      <label>\n        <span>T{{i + 1}} TIME (ms)</span>\n        <input type=\"text\" [(ngModel)]=\"time\">\n        <button *ngIf=\"TTimeMs.length > 1\" (click)=\"onRemoveTClick($event, i)\">remove</button>\n      </label>\n    </li>\n  </ul>\n  <button (click)=\"onCalculateClick($event)\">Calculate</button>\n</div>\n<hr>\n<h3>Build Scheme</h3>\n<div class=\"result\">\n  <p>Total time: {{ totalTime }}</p>\n\n  <p>Result: {{ rfScheme.join(' ') }}</p>\n  <ul class=\"rf-scheme\">\n    <li *ngFor=\"let item of rfScheme; index as i;\" [ngClass]=\"'block-' + item\"\n        [style.width.px]=\"getItemTime(item) / 10\">\n      <span class=\"index\">{{ i + 1 }}</span>\n      <span class=\"name\">{{getItemName(item)}}</span>\n      <span class=\"duration\">{{ getItemTime(item) }}ms</span>\n    </li>\n  </ul>\n  <ul class=\"rf-scheme\">\n    <li class=\"time-line\" *ngFor=\"let time of timeLine; index as i;\"\n        [ngClass]=\"{ 'half': i % 5 === 0, 'full': i % 10 === 0 }\">\n      <span *ngIf=\"i % 10 === 0\"> {{ getDuration(i * 100)}} </span>\n    </li>\n  </ul>\n</div>\n<hr>\n<h3>Balanced Scheme</h3>\n<div class=\"result\">\n  <p>Total time: {{ totalBalancedTime }}</p>\n\n  <p>Result: {{ rfSchemeBalanced.join(' ') }}</p>\n  <ul class=\"rf-scheme\">\n    <li *ngFor=\"let item of rfSchemeBalanced; index as i;\" [ngClass]=\"'block-' + item\"\n        [style.width.px]=\"getItemTime(item) / 10\">\n      <span class=\"index\">{{ i + 1 }}</span>\n      <span class=\"name\">{{getItemName(item)}}</span>\n      <span class=\"duration\">{{ getItemTime(item) }}ms</span>\n    </li>\n  </ul>\n  <ul class=\"rf-scheme\">\n    <li class=\"time-line\" *ngFor=\"let time of timeLineBalanced; index as i;\"\n        [ngClass]=\"{ 'half': i % 5 === 0, 'full': i % 10 === 0 }\">\n      <span *ngIf=\"i % 10 === 0\"> {{ getDuration(i * 100)}} </span>\n    </li>\n  </ul>\n</div>\n"
+module.exports = "<div class=\"time-inputs\">\n  <h3>Alarm, Beacon and Command distances (in ms)</h3>\n  <ul>\n    <li>\n      <label>\n        <span>ALARM TIME (ms)</span>\n        <input type=\"number\" [(ngModel)]=\"ATimeMs\" (input)=\"reset()\">\n      </label>\n    </li>\n    <li>\n      <label>\n        <span>BEACON TIME (ms)</span>\n        <input type=\"number\" [(ngModel)]=\"BTimeMs\" (input)=\"reset()\">\n      </label>\n    </li>\n    <li>\n      <label>\n        <span>COMMAND TIME (ms)</span>\n        <input type=\"number\" [(ngModel)]=\"CTimeMs\" (input)=\"reset()\">\n      </label>\n    </li>\n  </ul>\n\n  <h3>Traverse distances (in ms)</h3>\n  <button (click)=\"onAddTClick($event)\">add T</button>\n  <ul>\n    <li *ngFor=\"let time of TTimeMs; index as i;\">\n      <label>\n        <span>T{{i + 1}} TIME (ms)</span>\n        <input type=\"text\" [(ngModel)]=\"time\" (input)=\"reset()\">\n        <button *ngIf=\"TTimeMs.length > 1\" (click)=\"onRemoveTClick($event, i)\">remove</button>\n      </label>\n    </li>\n  </ul>\n  <button (click)=\"onCalculateClick($event)\">Calculate</button>\n</div>\n<hr>\n<h3>Build Scheme</h3>\n<div class=\"result\">\n  <p>Total time: {{ totalTime }}</p>\n\n  <p>Result: {{ getResultPath(rfScheme) }}</p>\n  <ul class=\"rf-scheme\">\n    <li *ngFor=\"let item of rfScheme; index as i;\" [ngClass]=\"'block-' + item\"\n        [style.width.px]=\"getItemTime(item) / 10\">\n      <span class=\"index\">{{ i + 1 }}</span>\n      <span class=\"name\">{{getItemName(item)}}</span>\n      <span class=\"duration\">{{ getItemTime(item) }}ms</span>\n    </li>\n  </ul>\n  <ul class=\"rf-scheme\">\n    <li class=\"time-line\" *ngFor=\"let time of timeLine; index as i;\"\n        [ngClass]=\"{ 'half': i % 5 === 0, 'full': i % 10 === 0 }\">\n      <span *ngIf=\"i % 10 === 0\"> {{ getDuration(i * 100)}} </span>\n    </li>\n  </ul>\n</div>\n<hr>\n<h3>Balanced Scheme</h3>\n<div class=\"result\">\n  <p>Total time: {{ totalBalancedTime }}</p>\n\n  <p>Result: {{ getResultPath(rfSchemeBalanced) }}</p>\n  <ul class=\"rf-scheme\">\n    <li *ngFor=\"let item of rfSchemeBalanced; index as i;\" [ngClass]=\"'block-' + item\"\n        [style.width.px]=\"getItemTime(item) / 10\">\n      <span class=\"index\">{{ i + 1 }}</span>\n      <span class=\"name\">{{getItemName(item)}}</span>\n      <span class=\"duration\">{{ getItemTime(item) }}ms</span>\n    </li>\n  </ul>\n  <ul class=\"rf-scheme\">\n    <li class=\"time-line\" *ngFor=\"let time of timeLineBalanced; index as i;\"\n        [ngClass]=\"{ 'half': i % 5 === 0, 'full': i % 10 === 0 }\">\n      <span *ngIf=\"i % 10 === 0\"> {{ getDuration(i * 100)}} </span>\n    </li>\n  </ul>\n</div>\n"
 
 /***/ }),
 
@@ -69,17 +69,19 @@ var AppComponent = /** @class */ (function () {
         this.CTimeMs = 2000;
         this.TTimeMs = [2000, 2000, 2000];
         this.rfScheme = [];
-        this.totalTime = '';
-        this.timeLine = [];
         this.rfSchemeBalanced = [];
+        this.totalTime = '';
         this.totalBalancedTime = '';
+        this.timeLine = [];
         this.timeLineBalanced = [];
     }
     AppComponent.prototype.onRemoveTClick = function ($event, i) {
         this.TTimeMs.splice(i, 1);
+        this.reset();
     };
     AppComponent.prototype.onAddTClick = function ($event) {
         this.TTimeMs.push(2000);
+        this.reset();
     };
     AppComponent.prototype.onCalculateClick = function ($event) {
         this.rfScheme = this.buildScheme();
@@ -156,7 +158,7 @@ var AppComponent = /** @class */ (function () {
     AppComponent.prototype.getItemTime = function (item) {
         switch (item) {
             case 'B':
-                return this.CTimeMs;
+                return this.BTimeMs;
             case 'A':
                 return this.ATimeMs;
             case 'C':
@@ -192,6 +194,18 @@ var AppComponent = /** @class */ (function () {
             }
         });
         return shortEnglishHumanizer(ms);
+    };
+    AppComponent.prototype.getResultPath = function (r) {
+        var _this = this;
+        return r.map(function (e) { return _this.getItemName(e); }).join(' ');
+    };
+    AppComponent.prototype.reset = function () {
+        this.rfScheme = [];
+        this.rfSchemeBalanced = [];
+        this.totalTime = '';
+        this.totalBalancedTime = '';
+        this.timeLine = [];
+        this.timeLineBalanced = [];
     };
     AppComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({

@@ -13,19 +13,22 @@ export class AppComponent {
   public TTimeMs = [2000, 2000, 2000];
 
   public rfScheme = [];
-  public totalTime = '';
-  public timeLine = [];
-
   public rfSchemeBalanced = [];
+
+  public totalTime = '';
   public totalBalancedTime = '';
+
+  public timeLine = [];
   public timeLineBalanced = [];
 
   onRemoveTClick($event, i) {
     this.TTimeMs.splice(i, 1);
+    this.reset();
   }
 
   onAddTClick($event) {
     this.TTimeMs.push(2000);
+    this.reset();
   }
 
   onCalculateClick($event) {
@@ -123,7 +126,7 @@ export class AppComponent {
   getItemTime(item) {
     switch (item) {
       case 'B':
-        return this.CTimeMs;
+        return this.BTimeMs;
       case 'A':
         return this.ATimeMs;
       case 'C':
@@ -163,4 +166,18 @@ export class AppComponent {
     return shortEnglishHumanizer(ms);
   }
 
+  getResultPath(r) {
+    return r.map(e => this.getItemName(e)).join(' ');
+  }
+
+  reset() {
+    this.rfScheme = [];
+    this.rfSchemeBalanced = [];
+
+    this.totalTime = '';
+    this.totalBalancedTime = '';
+
+    this.timeLine = [];
+    this.timeLineBalanced = [];
+  }
 }
