@@ -1,0 +1,79 @@
+ul li label span {
+  width: 180px;
+  display: inline-block;
+}
+
+.rf-scheme {
+  margin: 0;
+  padding: 0;
+  white-space: nowrap;
+}
+
+.rf-scheme li {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  display: inline-block;
+  background-color: whitesmoke;
+  height: 50px;
+  position: relative;
+}
+
+.rf-scheme li .name {
+  display: block;
+  text-align: center;
+  font-weight: bold;
+  font-size: 22px;
+  font-family: sans-serif;
+  margin: 4px;
+}
+
+.rf-scheme li .index {
+  position: absolute;
+  color: gray;
+  top: 0;
+  right: 0;
+  padding: 1px 2px;
+  border-right: 1px solid black;
+}
+
+.rf-scheme li .duration {
+  position: absolute;
+  color: gray;
+  bottom: 0;
+  left: 0;
+}
+
+.rf-scheme li.block-B {
+  background-color: lightskyblue;
+}
+
+.rf-scheme li.block-A {
+  background-color: lightpink;
+}
+
+.rf-scheme li.block-C {
+  background-color: lightgoldenrodyellow;
+}
+
+.rf-scheme li.time-line {
+  background-color: white;
+  width: 9px;
+  height: 20px;
+  border-left: 1px solid black;
+  vertical-align: top;
+  position: relative;
+}
+
+.rf-scheme li.time-line.half {
+  height: 40px;
+}
+
+.rf-scheme li.time-line.full {
+  height: 60px;
+}
+
+.rf-scheme li.time-line span {
+  position: absolute;
+  bottom: 0;
+}

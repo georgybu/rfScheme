@@ -1,0 +1,78 @@
+<div class="time-inputs">
+  <h3>Alarm, Beacon and Command distances (in ms)</h3>
+  <ul>
+    <li>
+      <label>
+        <span>ALARM TIME (ms)</span>
+        <input type="number" [(ngModel)]="ATimeMs">
+      </label>
+    </li>
+    <li>
+      <label>
+        <span>BEACON TIME (ms)</span>
+        <input type="number" [(ngModel)]="BTimeMs">
+      </label>
+    </li>
+    <li>
+      <label>
+        <span>COMMAND TIME (ms)</span>
+        <input type="number" [(ngModel)]="CTimeMs">
+      </label>
+    </li>
+  </ul>
+
+  <h3>Traverse distances (in ms)</h3>
+  <button (click)="onAddTClick($event)">add T</button>
+  <ul>
+    <li *ngFor="let time of TTimeMs; index as i;">
+      <label>
+        <span>T{{i + 1}} TIME (ms)</span>
+        <input type="text" [(ngModel)]="time">
+        <button *ngIf="TTimeMs.length > 1" (click)="onRemoveTClick($event, i)">remove</button>
+      </label>
+    </li>
+  </ul>
+  <button (click)="onCalculateClick($event)">Calculate</button>
+</div>
+<hr>
+<h3>Build Scheme</h3>
+<div class="result">
+  <p>Total time: {{ totalTime }}</p>
+
+  <p>Result: {{ rfScheme.join(' ') }}</p>
+  <ul class="rf-scheme">
+    <li *ngFor="let item of rfScheme; index as i;" [ngClass]="'block-' + item"
+        [style.width.px]="getItemTime(item) / 10">
+      <span class="index">{{ i + 1 }}</span>
+      <span class="name">{{getItemName(item)}}</span>
+      <span class="duration">{{ getItemTime(item) }}ms</span>
+    </li>
+  </ul>
+  <ul class="rf-scheme">
+    <li class="time-line" *ngFor="let time of timeLine; index as i;"
+        [ngClass]="{ 'half': i % 5 === 0, 'full': i % 10 === 0 }">
+      <span *ngIf="i % 10 === 0"> {{ getDuration(i * 100)}} </span>
+    </li>
+  </ul>
+</div>
+<hr>
+<h3>Balanced Scheme</h3>
+<div class="result">
+  <p>Total time: {{ totalBalancedTime }}</p>
+
+  <p>Result: {{ rfSchemeBalanced.join(' ') }}</p>
+  <ul class="rf-scheme">
+    <li *ngFor="let item of rfSchemeBalanced; index as i;" [ngClass]="'block-' + item"
+        [style.width.px]="getItemTime(item) / 10">
+      <span class="index">{{ i + 1 }}</span>
+      <span class="name">{{getItemName(item)}}</span>
+      <span class="duration">{{ getItemTime(item) }}ms</span>
+    </li>
+  </ul>
+  <ul class="rf-scheme">
+    <li class="time-line" *ngFor="let time of timeLineBalanced; index as i;"
+        [ngClass]="{ 'half': i % 5 === 0, 'full': i % 10 === 0 }">
+      <span *ngIf="i % 10 === 0"> {{ getDuration(i * 100)}} </span>
+    </li>
+  </ul>
+</div>
